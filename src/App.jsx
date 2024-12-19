@@ -8,9 +8,8 @@ const App = () => {
 
     return (
         <>
-            <h3>اپلیکیشن مدیریت مخاطبین</h3>
+            <h3 style={{ fontFamily: 'Dana'}}>اپلیکیشن مدیریت مخاطبین</h3>
             <span className='fa fa-user'></span>
-            <i class="fas fa-address-book"></i>
             <button className='btn btn-primary'>button</button>
         </>
     )
