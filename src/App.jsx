@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Navbar from './components/Navbar';
 import './App.css'
 
 const App = () => {
-    const [count, setCount] = useState(0)
 
     return (
         <>
-            <h3>اپلیکیشن مدیریت مخاطبین</h3>
+            <Navbar />
         </>
     )
 }
