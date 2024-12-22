@@ -1,8 +1,10 @@
 import Contact from "./Contact";
-const Contacts = () => {
+import Spinner from "../Spinner";
+import NotFound from "../../assets/NotFound.gif";
+const Contacts = ({ contacts, loading }) => {
     return (
         <>
-            <div className="container">
+            <div className="container pt-5">
                 <div className="flex">
                     <div>
                         <a
@@ -21,10 +23,24 @@ const Contacts = () => {
                     </div>
                 </div>
                 <br />
-                <div className="flex">
-                    {/* contact list */}
-                    <Contact />
-                </div>
+                {loading ? <Spinner /> : (
+                    <div className="flex justify-center">
+                        {contacts.length > 0
+                            ? contacts.map(c => (
+                                <Contact key={c.id} contact={c} />
+                            ))
+                            : (
+                                <div className="flex flex-col items-center gap-6">
+                                    <img src={NotFound} alt="پیدا نشد" className="w-1/3" />
+                                    <p className="text-xl">
+                                        مخاطب یافت نشد ...
+                                    </p>
+                                </div>
+                            )}
+                    </div>
+                )
+                }
+
             </div>
         </>
     )
