@@ -24,7 +24,7 @@ const Contacts = ({ contacts, loading }) => {
                 </div>
                 <br />
                 {loading ? <Spinner /> : (
-                    <div className="flex justify-center">
+                    <div className="grid cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {contacts.length > 0
                             ? contacts.map(c => (
                                 <Contact key={c.id} contact={c} />
