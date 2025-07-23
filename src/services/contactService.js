@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVER_URL = "http://localhost:9000";
+const SERVER_URL = "http://localhost:8000";
 
 // @desc Get all contacts
 // @route GET https://localhost:9000/contacts
@@ -30,23 +30,23 @@ export const getGroupById = (groupId) => {
     return axios.get(url);
 }
 
-// @dest create contact
+// @desc create contact
 // @route POST https://localhost:9000/contacts
 export const createContact = (contact) => {
-    url = `${SERVER_URL}/contacts`;
+    const url = `${SERVER_URL}/contacts`;
     return axios.post(url, contact);
 }
 
 // @desc update contact
 // @route PUT https://localhost:9000/contacts/:contactId
 export const updateContact = (contactId, contact) => {
-    url = `${SERVER_URL}/contacts/${contactId}`;
+    const url = `${SERVER_URL}/contacts/${contactId}`;
     return axios.put(url, contact);
 }
 
 // @desc delete contact
 // @route DELETE https://localhost:9000/contacts/:contactId
 export const deleteContact = (contactId) => {
-    url = `${SERVER_URL}/contacts/${contactId}`;
+    const url = `${SERVER_URL}/contacts/${contactId}`;
     return axios.delete(url);
 }

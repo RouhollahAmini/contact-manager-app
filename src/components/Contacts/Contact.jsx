@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 const Contact = ({ contact }) => {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -47,21 +48,21 @@ const Contact = ({ contact }) => {
                                         role="menu"
                                     >
                                         <div className="p-2">
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to={`/contacts/${contact.id}`}
                                                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:dark:text-gray-300"
                                                 role="menuitem"
                                             >
                                                 مشاهده مخاطب
-                                            </a>
+                                            </Link>
 
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to={`/contacts/edit/${contact.id}`}
                                                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:dark:text-gray-300"
                                                 role="menuitem"
                                             >
                                                 ویرایش مخاطب
-                                            </a>
+                                            </Link>
                                         </div>
 
                                         <div className="p-2">
