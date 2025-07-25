@@ -7,7 +7,7 @@ import { getContactById, getAllGroups, updateContact } from "../../services/cont
 import { Spinner } from "../";
 
 
-const EditContact = () => {
+const EditContact = ({forceRender, setForceRender}) => {
 
     const navigate = useNavigate();
     const { contactId } = useParams();
@@ -57,6 +57,7 @@ const EditContact = () => {
             const { data } = await updateContact(contactId, state.contact);
             setState({ ...state, loading: false });
             if (data) {
+                setForceRender(!forceRender);
                 navigate("/contacts");
             }
         } catch (error) {

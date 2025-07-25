@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-const Contact = ({ contact }) => {
+const Contact = ({ contact, confirmDelete }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const handleOpen = () => setIsOpen(!isOpen);
@@ -66,11 +66,11 @@ const Contact = ({ contact }) => {
                                         </div>
 
                                         <div className="p-2">
-                                            <form method="POST" action="#">
                                                 <button
                                                     type="submit"
                                                     className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50 dark:text-red-500 dark:hover:bg-red-600/10"
                                                     role="menuitem"
+                                                    onClick={confirmDelete}
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,6 @@ const Contact = ({ contact }) => {
 
                                                     حذف مخاطب
                                                 </button>
-                                            </form>
                                         </div>
                                     </div>
                                 ) : null}

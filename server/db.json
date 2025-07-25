@@ -1,17 +1,6 @@
 {
   "contacts": [
     {
-      "fullname": [
-        "روح الله امینی"
-      ],
-      "image": "https://i.pravatar.cc/150?img=4",
-      "mobile": "09374959089",
-      "email": "r.amini3977@gmail.com",
-      "job": "برنامه نویس",
-      "group": 1,
-      "id": 1
-    },
-    {
       "fullname": "علی امینی",
       "image": "https://i.pravatar.cc/150?img=8",
       "mobile": "09367449830",
@@ -19,15 +8,6 @@
       "job": "مهندس عمران",
       "group": 1,
       "id": 2
-    },
-    {
-      "fullname": "تست تستی",
-      "image": "https://i.pravatar.cc/150?img=6",
-      "mobile": "09366468067",
-      "email": "ali.amini@gmail.com",
-      "job": "مهندس عمران",
-      "group": 1,
-      "id": 3
     },
     {
       "fullname": "عبدالله غلامی",
@@ -46,24 +26,6 @@
       "group": "2",
       "image": "https://i.pravatar.cc/150?img=13",
       "id": 5
-    },
-    {
-      "fullname": "علی",
-      "mobile": "09121231234",
-      "email": "amini@jz.ac.ir",
-      "job": "مبارز",
-      "group": "3",
-      "image": "https://i.pravatar.cc/150?img=20",
-      "id": 6
-    },
-    {
-      "fullname": "شمسیه",
-      "mobile": "09121231231",
-      "email": "shams@gmail.com",
-      "job": "شهرداری",
-      "group": "5",
-      "image": "https://i.pravatar.cc/150?img=28",
-      "id": 7
     }
   ],
   "groups": [
