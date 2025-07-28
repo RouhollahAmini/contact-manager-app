@@ -1,4 +1,4 @@
-const SearchContact = () => {
+const SearchContact = ({ query, search }) => {
     return (
         <div className="relative">
             <label htmlFor="Search" className="sr-only"> جست و جو </label>
@@ -6,6 +6,8 @@ const SearchContact = () => {
             <input
                 type="text"
                 id="Search"
+                value={query.text}
+                onChange={search}
                 placeholder="جستجو مخاطبین ..."
                 className="w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm"
             />

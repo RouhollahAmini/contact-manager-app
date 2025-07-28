@@ -99,23 +99,23 @@ const Contact = ({ contact, confirmDelete }) => {
 
                     <ul className="mt-4 space-y-2">
                         <li>
-                            <a href="#" className="block h-full rounded-lg border border-gray-700/20 p-4 hover:border-gray-400">
+                            <div className="block h-full rounded-lg border border-gray-700/20 p-4 hover:border-gray-400">
                                 <span className="font-medium text-xs dark:text-white"> شماره تماس : </span>
 
                                 <a href={`tel:${contact.mobile}`} className="mt-1 font-medium dark:text-gray-300">
                                     {contact.mobile}
                                 </a>
-                            </a>
+                            </div>
                         </li>
 
                         <li>
-                            <a href="#" className="block h-full rounded-lg border border-gray-700/20 p-4 hover:border-gray-400">
+                            <div className="block h-full rounded-lg border border-gray-700/20 p-4 hover:border-gray-400">
                                 <span className="font-medium text-xs dark:text-white"> ایمیل : </span>
 
                                 <a href={`mailto:${contact.email}`} className="mt-1 font-medium dark:text-gray-300">
                                     {contact.email}
                                 </a>
-                            </a>
+                            </div>
                         </li>
                     </ul>
                 </article>

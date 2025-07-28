@@ -9,9 +9,8 @@ const Contacts = ({ contacts, loading, confirmDelete }) => {
             <div className="container pt-5">
                 <div className="flex">
                     <div>
-                        <a
+                        <div
                             className="group relative inline-block text-sm font-medium text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                            href="#"
                         >
                             <span
                                 className="absolute inset-0 translate-x-0.5 translate-y-0.5 rounded-xl bg-indigo-600 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
@@ -21,7 +20,7 @@ const Contacts = ({ contacts, loading, confirmDelete }) => {
                                 ساخت مخاطب جدید
                                 <i className="fa-solid fa-user-plus mx-2 text-lg"></i>
                             </Link>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <br />

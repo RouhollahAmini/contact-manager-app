@@ -66,105 +66,92 @@ const ViewContact = () => {
 
                                         <div className="mt-8 grid grid-cols-6 gap-6">
                                             <div className="col-span-6 sm:col-span-3">
-                                                <label
+                                                <span
                                                     htmlFor="fullname"
                                                     className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                                 >
                                                     نام و نام خانوادگی :
-                                                </label>
+                                                </span>
 
-                                                <input
+                                                <div
                                                     type="text"
                                                     id="fullname"
                                                     name="fullname"
-                                                    value={contact.fullname}
+
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
+                                                >
+                                                    {contact.fullname}
+                                                </div>
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-3">
-                                                <label
+                                                <span
                                                     htmlFor="mobile"
                                                     className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                                 >
                                                     شماره موبایل :
-                                                </label>
+                                                </span>
 
-                                                <input
+                                                <div
                                                     type="number"
                                                     id="mobile"
                                                     name="mobile"
-                                                    value={contact.mobile}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
+                                                >
+                                                    {contact.mobile}
+                                                </div>
                                             </div>
 
                                             <div className="col-span-6">
-                                                <label htmlFor="Email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                                <span htmlFor="Email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                                                     ایمیل :
-                                                </label>
+                                                </span>
 
-                                                <input
+                                                <div
                                                     type="email"
                                                     id="Email"
                                                     name="email"
-                                                    value={contact.email}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
+                                                >
+                                                    {contact.email}
+                                                </div>
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-3">
-                                                <label
+                                                <span
                                                     htmlFor="job"
                                                     className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                                 >
                                                     شغل :
-                                                </label>
+                                                </span>
 
-                                                <input
+                                                <div
                                                     type="text"
                                                     id="job"
                                                     name="job"
-                                                    value={contact.job}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
+                                                >
+                                                    {contact.job}
+                                                </div>
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-3">
-                                                <label
-                                                    htmlFor="group"
+                                                <span
+                                                    htmlFor="job"
                                                     className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                                 >
                                                     گروه :
-                                                </label>
+                                                </span>
 
-                                                <select
-                                                    id="group"
-                                                    name="group"
-                                                    value={contact.group}
+                                                <div
+                                                    type="text"
+                                                    id="job"
+                                                    name="job"
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 >
-
-                                                    <option key={group.id} value={group.id}>
-                                                        {group.name}
-                                                    </option>
-
-                                                </select>
+                                                    {group.name}
+                                                </div>
                                             </div>
-                                            <div className="col-span-6">
-                                                <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                                    آدرس تصویر :
-                                                </label>
-
-                                                <input
-                                                    type="text"
-                                                    id="image"
-                                                    name="image"
-                                                    value={contact.image}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
-                                            </div>
-
 
                                             <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                                 <Link
