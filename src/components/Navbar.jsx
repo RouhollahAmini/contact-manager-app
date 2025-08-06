@@ -1,6 +1,7 @@
 import SearchContact from "./Contacts/SearchContact";
 
-const Navbar = ({ query, search }) => {
+const Navbar = () => {
+
     return (
         <nav className="shadow-md">
             <div className="container">
@@ -14,7 +15,7 @@ const Navbar = ({ query, search }) => {
                     {
                         location.pathname === "/contacts" ? (
                             <div className="w-full sm:w-1/2 md:w-1/3">
-                                <SearchContact query={query} search={search} />
+                                <SearchContact />
                             </div>
                         ) : null
                     }

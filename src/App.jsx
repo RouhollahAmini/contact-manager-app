@@ -16,7 +16,14 @@ const App = () => {
     const [contacts, setContacts] = useState([]);
     const [filteredContacts, setFilteredContacts] = useState([]);
     const [groups, setGroups] = useState([]);
-    const [contact, setContact] = useState({});
+    const [contact, setContact] = useState({
+        fullname: "",
+        mobile: "",
+        email: "",
+        job: "",
+        group: "",
+        image: ""
+    });
     const [contactQuery, setContactQuery] = useState({ text: "" });
 
 
@@ -50,14 +57,24 @@ const App = () => {
     const createContactForm = async (event) => {
         event.preventDefault();
         try {
-            const { status } = await createContact(contact);
+            setLoading((prevLoading) => !prevLoading);
+            const { status, data } = await createContact(contact);
+
+
             if (status === 201) {
+                const allContacts = [...contacts, data];
+
+                setContacts(allContacts);
+                setFilteredContacts(allContacts);
+
                 setContact({});
+                setLoading((prevLoading) => !prevLoading)
 
                 navigate("/contacts");
             }
         } catch (err) {
             console.log(err.message);
+            setLoading((prevLoading) => !prevLoading);
         }
     }
 
@@ -90,7 +107,7 @@ const App = () => {
                             <div className="flex-1">
                                 <strong className="font-medium text-gray-900"> پاک کردن مخاطب </strong>
 
-                                <p className="mt-0.5 text-sm text-gray-700">آیا از پاک کردن مخاطب مطمئن هستید؟</p>
+                                <p className="mt-0.5 text-sm text-gray-700">آیا از پاک کردن {contactFullname} مطمئن هستید؟</p>
 
                                 <div className="mt-3 flex items-center gap-2">
                                     <button
@@ -176,21 +193,15 @@ const App = () => {
             onContactChange,
             deleteContact: confirmDelete,
             createContact: createContactForm,
-            contactSearch, 
+            contactSearch,
         }}>
             <div>
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Navigate to={'/contacts'} />} />
-                    <Route path='/contacts' element={<Contacts contacts={filteredContacts} loading={loading} confirmDelete={confirmDelete} />} />
+                    <Route path='/contacts' element={<Contacts />} />
                     <Route path='/contacts/add' element={
-                        <AddContact
-                            loading={loading}
-                            setContactInfo={onContactChange}
-                            contact={contact}
-                            groups={groups}
-                            createContactForm={createContactForm}
-                        />
+                        <AddContact />
                     } />
                     <Route path='/contacts/:contactId' element={<ViewContact />} />
                     <Route path='/contacts/edit/:contactId' element={<EditContact />} />

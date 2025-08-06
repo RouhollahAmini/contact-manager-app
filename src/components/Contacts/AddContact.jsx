@@ -1,8 +1,14 @@
+import { useContext } from 'react';
+
+import { ContactContext } from '../../context/contactContext';
+
 import { Link } from 'react-router'
 import bgImage from '../../assets/boy-taking-notes.png';
 import Spinner from '../Spinner';
 
-const AddContact = ({ loading, contact, setContactInfo, groups, createContactForm }) => {
+const AddContact = () => {
+    
+    const { loading, contact, onContactChange, groups, createContact } = useContext(ContactContext);
     
     return (
         <>
@@ -34,7 +40,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                         لطفا اطلاعات مخاطب خود را در فرم زیر وارد کنید.
                                     </p>
 
-                                    <form onSubmit={createContactForm} className="mt-8 grid grid-cols-6 gap-6">
+                                    <form onSubmit={createContact} className="mt-8 grid grid-cols-6 gap-6">
                                         <div className="col-span-6 sm:col-span-3">
                                             <label
                                                 htmlFor="fullname"
@@ -48,7 +54,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                                 id="fullname"
                                                 name="fullname"
                                                 value={contact.fullname}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                         </div>
@@ -66,7 +72,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                                 id="mobile"
                                                 name="mobile"
                                                 value={contact.mobile}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                         </div>
@@ -81,7 +87,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                                 id="Email"
                                                 name="email"
                                                 value={contact.email}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                         </div>
@@ -99,7 +105,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                                 id="job"
                                                 name="job"
                                                 value={contact.job}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                         </div>
@@ -116,7 +122,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                                 id="group"
                                                 name="group"
                                                 value={contact.group}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             >
                                                 <option>انتخاب گروه</option>
@@ -139,7 +145,7 @@ const AddContact = ({ loading, contact, setContactInfo, groups, createContactFor
                                                 id="image"
                                                 name="image"
                                                 value={contact.image}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                         </div>

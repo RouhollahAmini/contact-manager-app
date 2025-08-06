@@ -1,9 +1,16 @@
 import { Link } from "react-router";
 
+import { useContext } from "react";
+
+import { ContactContext } from "../../context/contactContext";
+
 import Contact from "./Contact";
 import Spinner from "../Spinner";
 import NotFound from "../../assets/NotFound.gif";
-const Contacts = ({ contacts, loading, confirmDelete }) => {
+const Contacts = () => {
+
+    const {contacts, loading, deleteContact} = useContext(ContactContext);
+
     return (
         <>
             <div className="container pt-5">
@@ -28,7 +35,7 @@ const Contacts = ({ contacts, loading, confirmDelete }) => {
                     <div className={ contacts.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : ""}>
                         {contacts.length > 0
                             ? contacts.map(c => (
-                                <Contact key={c.id} contact={c} confirmDelete={()=> confirmDelete(c.id, c.fullname)} />
+                                <Contact key={c.id} contact={c} deleteContact={()=> deleteContact(c.id, c.fullname)} />
                             ))
                             : (
                                 <div className="flex flex-col items-center gap-6">

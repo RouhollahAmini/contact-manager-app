@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { ContactContext } from "../../context/contactContext";
 
 import { Link, useParams } from "react-router";
 
@@ -9,29 +11,33 @@ import { Spinner } from "../";
 
 const ViewContact = () => {
     const { contactId } = useParams();
+
     const [state, setState] = useState({
-        loading: false,
         contact: {},
         group: {}
     });
 
+    const { loading, setLoading } = useContext(ContactContext);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setState({ ...state, loading: true });
+                setLoading(true);
+
                 const { data: contactData } = await getContactById(contactId);
                 const { data: groupData } = await getGroupById(contactData.group);
 
-                setState({ ...state, loading: false, contact: contactData, group: groupData });
+                setLoading(false);
+                setState({ ...state, contact: contactData, group: groupData });
             } catch (error) {
                 console.log(error.message);
-                setState({ ...state, loading: false });
+                setLoading(false);
             }
         };
         fetchData();
     }, []);
 
-    const { loading, contact, group } = state;
+    const { contact, group } = state;
 
     return (
         <>
