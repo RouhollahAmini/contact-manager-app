@@ -9,7 +9,7 @@ import Spinner from "../Spinner";
 import NotFound from "../../assets/NotFound.gif";
 const Contacts = () => {
 
-    const {contacts, loading, deleteContact} = useContext(ContactContext);
+    const {filteredContacts, loading, deleteContact} = useContext(ContactContext);
 
     return (
         <>
@@ -32,9 +32,9 @@ const Contacts = () => {
                 </div>
                 <br />
                 {loading ? <Spinner /> : (
-                    <div className={ contacts.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : ""}>
-                        {contacts.length > 0
-                            ? contacts.map(c => (
+                    <div className={ filteredContacts.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : ""}>
+                        {filteredContacts.length > 0
+                            ? filteredContacts.map(c => (
                                 <Contact key={c.id} contact={c} deleteContact={()=> deleteContact(c.id, c.fullname)} />
                             ))
                             : (

@@ -1,72 +1,71 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { ContactContext } from "../../context/contactContext";
 
 import { Link, useParams, useNavigate } from "react-router";
 
-import { getContactById, getAllGroups, updateContact } from "../../services/contactService";
+import { getContactById, updateContact } from "../../services/contactService";
 
 import { Spinner } from "../";
 
 
-const EditContact = ({forceRender, setForceRender}) => {
+const EditContact = () => {
 
     const navigate = useNavigate();
     const { contactId } = useParams();
-    const [state, setState] = useState({
-        loading: false,
-        contact: {
-            fullname: "",
-            mobile: "",
-            email: "",
-            job: "",
-            group: "",
-            image: ""
-        },
-        groups: []
-    });
+
+    const { contacts, setContacts, setFilteredContacts, loading, setLoading, groups } = useContext(ContactContext);
+
+    const [contact, setContact] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setState({ ...state, loading: true });
+                setLoading(true);
                 const { data: contactData } = await getContactById(contactId);
-                const { data: groupsData } = await getAllGroups();
 
-                setState({ ...state, loading: false, contact: contactData, groups: groupsData });
+                setLoading(false);
+                setContact(contactData);
+
             } catch (error) {
                 console.log(error.message);
-                setState({ ...state, loading: false });
+                setLoading(false);
             }
         };
         fetchData();
     }, []);
 
-    const setContactInfo = (e) => {
-        setState({
-            ...state,
-            contact: {
-                ...state.contact,
-                [e.target.name]: [e.target.value]
-            }
+    const onContactChange = (e) => {
+        setContact({
+            ...contact,
+            [e.target.name]: e.target.value
         })
-    }
+    };
 
     const submitForm = async (event) => {
         event.preventDefault();
         try {
-            setState({ ...state, loading: true });
-            const { data } = await updateContact(contactId, state.contact);
-            setState({ ...state, loading: false });
-            if (data) {
-                setForceRender(!forceRender);
+            setLoading(true);
+
+            const { data, status } = await updateContact(contactId, contact);
+
+            if (status === 200) {
+                setLoading(false);
+
+                const allContacts = [...contacts];
+                const contactIndex = allContacts.findIndex((contact) => contact.id === parseInt(contactId));
+
+                allContacts[contactIndex] = data;
+                setContacts(allContacts);
+                setFilteredContacts(allContacts);
+
                 navigate("/contacts");
             }
         } catch (error) {
             console.log(error);
-            setState({ ...state, loading: false });
+            setLoading(false);
         }
     }
-
-    const { loading, contact, groups } = state;
 
     return (
         <>
@@ -113,7 +112,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                     id="fullname"
                                                     name="fullname"
                                                     value={contact.fullname}
-                                                    onChange={setContactInfo}
+                                                    onChange={onContactChange}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 />
                                             </div>
@@ -131,7 +130,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                     id="mobile"
                                                     name="mobile"
                                                     value={contact.mobile}
-                                                    onChange={setContactInfo}
+                                                    onChange={onContactChange}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 />
                                             </div>
@@ -146,7 +145,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                     id="Email"
                                                     name="email"
                                                     value={contact.email}
-                                                    onChange={setContactInfo}
+                                                    onChange={onContactChange}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 />
                                             </div>
@@ -164,7 +163,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                     id="job"
                                                     name="job"
                                                     value={contact.job}
-                                                    onChange={setContactInfo}
+                                                    onChange={onContactChange}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 />
                                             </div>
@@ -181,7 +180,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                     id="group"
                                                     name="group"
                                                     value={contact.group}
-                                                    onChange={setContactInfo}
+                                                    onChange={onContactChange}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 >
                                                     <option value="">انتخاب گروه</option>
@@ -202,7 +201,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                     id="image"
                                                     name="image"
                                                     value={contact.image}
-                                                    onChange={setContactInfo}
+                                                    onChange={onContactChange}
                                                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                 />
                                             </div>
@@ -210,8 +209,8 @@ const EditContact = ({forceRender, setForceRender}) => {
 
                                             <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                                 <input type='submit' value="ویرایش مخاطب"
-                                                className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
-                                            />
+                                                    className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
+                                                />
                                                 <Link
                                                     to="/contacts"
                                                     className="inline-block shrink-0 rounded-md border border-red-600 bg-red-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-red-600 focus:outline-none focus:ring active:text-red-500 dark:hover:bg-red-700 dark:hover:text-white"
