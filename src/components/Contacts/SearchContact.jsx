@@ -4,7 +4,7 @@ import { ContactContext } from "../../context/contactContext";
 
 const SearchContact = () => {
 
-    const {contactQuery, contactSearch} = useContext(ContactContext);
+    const { contactSearch } = useContext(ContactContext);
 
     return (
         <div className="relative">
@@ -13,8 +13,7 @@ const SearchContact = () => {
             <input
                 type="text"
                 id="Search"
-                value={contactQuery.text}
-                onChange={contactSearch}
+                onChange={event => contactSearch(event.target.value)}
                 placeholder="جستجو مخاطبین ..."
                 className="w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm"
             />

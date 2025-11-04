@@ -24,7 +24,7 @@ const App = () => {
         group: "",
         image: ""
     });
-    const [contactQuery, setContactQuery] = useState({ text: "" });
+
 
 
     const navigate = useNavigate();
@@ -180,13 +180,17 @@ const App = () => {
         }
     }
 
-    const contactSearch = (event) => {
-        setContactQuery({ ...contactQuery, text: event.target.value });
-        const allContacts = contacts.filter((contact) => {
-            return contact.fullname.toLowerCase()
-                .includes(event.target.value.toLowerCase());
-        });
-        setFilteredContacts(allContacts);
+    // debounce search
+    let filterTimeout;
+    const contactSearch = (query) => {
+        clearTimeout(filterTimeout);
+
+        filterTimeout = setTimeout(() => {
+            setFilteredContacts(contacts.filter((contact) => {
+                return contact.fullname.toLowerCase()
+                    .includes(query.toLowerCase());
+            }));
+        }, 1000);
     }
 
     return (
@@ -197,7 +201,6 @@ const App = () => {
             setContact,
             contacts,
             setContacts,
-            contactQuery,
             filteredContacts,
             setFilteredContacts,
             groups,
