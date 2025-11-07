@@ -11,6 +11,8 @@ import { ContactContext } from './context/contactContext';
 
 import _ from 'lodash';
 
+import { contactSchema } from './validations/contactValidation';
+
 import './App.css'
 
 const App = () => {
@@ -26,6 +28,7 @@ const App = () => {
         group: "",
         image: ""
     });
+    const [errors, setErrors] = useState([]);
 
 
 
@@ -60,6 +63,8 @@ const App = () => {
         event.preventDefault();
         try {
             setLoading((prevLoading) => !prevLoading);
+            await contactSchema.validate(contact, { abortEarly: false });
+
             const { status, data } = await createContact(contact);
 
 
@@ -76,6 +81,7 @@ const App = () => {
             }
         } catch (err) {
             console.log(err.message);
+            setErrors(err.inner);
             setLoading((prevLoading) => !prevLoading);
         }
     }
@@ -206,6 +212,7 @@ const App = () => {
             filteredContacts,
             setFilteredContacts,
             groups,
+            errors,
             onContactChange,
             deleteContact: confirmDelete,
             createContact: createContactForm,

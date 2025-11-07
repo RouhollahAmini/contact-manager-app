@@ -7,9 +7,9 @@ import bgImage from '../../assets/boy-taking-notes.png';
 import Spinner from '../Spinner';
 
 const AddContact = () => {
-    
-    const { loading, contact, onContactChange, groups, createContact } = useContext(ContactContext);
-    
+
+    const { loading, contact, onContactChange, groups, createContact, errors } = useContext(ContactContext);
+
     return (
         <>
             {loading ? (
@@ -40,6 +40,9 @@ const AddContact = () => {
                                         لطفا اطلاعات مخاطب خود را در فرم زیر وارد کنید.
                                     </p>
 
+                                    <div className="col-span-6 sm:col-span-3">
+                                        <div>{errors?.map((error, index) => (<p className='text-red-600' key={index}> ⛔ {index + 1} - {error.message} </p>))}</div>
+                                    </div>
                                     <form onSubmit={createContact} className="mt-8 grid grid-cols-6 gap-6">
                                         <div className="col-span-6 sm:col-span-3">
                                             <label
