@@ -9,6 +9,8 @@ import { confirmAlert } from 'react-confirm-alert';
 
 import { ContactContext } from './context/contactContext';
 
+import _ from 'lodash';
+
 import './App.css'
 
 const App = () => {
@@ -181,17 +183,17 @@ const App = () => {
     }
 
     // debounce search
-    let filterTimeout;
-    const contactSearch = (query) => {
-        clearTimeout(filterTimeout);
+    // let filterTimeout;
+    const contactSearch = _.debounce(query => {
+        // clearTimeout(filterTimeout);
 
-        filterTimeout = setTimeout(() => {
-            setFilteredContacts(contacts.filter((contact) => {
-                return contact.fullname.toLowerCase()
-                    .includes(query.toLowerCase());
-            }));
-        }, 1000);
-    }
+        // filterTimeout = setTimeout(() => {
+        setFilteredContacts(contacts.filter((contact) => {
+            return contact.fullname.toLowerCase()
+                .includes(query.toLowerCase());
+        }));
+        // }, 1000);
+    }, 1000);
 
     return (
         <ContactContext.Provider value={{
