@@ -11,7 +11,7 @@ import { ContactContext } from './context/contactContext';
 
 import _ from 'lodash';
 
-import { contactSchema } from './validations/contactValidation';
+// import { contactSchema } from './validations/contactValidation';
 
 import './App.css'
 
@@ -28,7 +28,7 @@ const App = () => {
         group: "",
         image: ""
     });
-    const [errors, setErrors] = useState([]);
+    // const [errors, setErrors] = useState([]);
 
 
 
@@ -59,13 +59,13 @@ const App = () => {
     }, [])
 
     //create a handler for contact submit form
-    const createContactForm = async (event) => {
-        event.preventDefault();
+    const createContactForm = async (values) => {
+        // event.preventDefault();
         try {
             setLoading((prevLoading) => !prevLoading);
-            await contactSchema.validate(contact, { abortEarly: false });
+            // await contactSchema.validate(contact, { abortEarly: false });
 
-            const { status, data } = await createContact(contact);
+            const { status, data } = await createContact(values);
 
 
             if (status === 201) {
@@ -81,7 +81,7 @@ const App = () => {
             }
         } catch (err) {
             console.log(err.message);
-            setErrors(err.inner);
+            // setErrors(err.inner);
             setLoading((prevLoading) => !prevLoading);
         }
     }
@@ -212,7 +212,7 @@ const App = () => {
             filteredContacts,
             setFilteredContacts,
             groups,
-            errors,
+            // errors,
             onContactChange,
             deleteContact: confirmDelete,
             createContact: createContactForm,
