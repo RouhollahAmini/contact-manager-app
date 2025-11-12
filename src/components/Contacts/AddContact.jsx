@@ -4,7 +4,7 @@ import { ContactContext } from '../../context/contactContext';
 
 import { Link } from 'react-router'
 
-import { Formik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from '../../validations/contactValidation';
 
 import bgImage from '../../assets/boy-taking-notes.png';
@@ -76,8 +76,7 @@ const AddContact = () => {
                                             await createContact(values);
                                         }}
                                     >
-                                        {(formik) => (
-                                            <form onSubmit={formik.handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
+                                            <Form className="mt-8 grid grid-cols-6 gap-6">
                                                 <div className="col-span-6 sm:col-span-3">
                                                     <label
                                                         htmlFor="fullname"
@@ -85,20 +84,20 @@ const AddContact = () => {
                                                     >
                                                         نام و نام خانوادگی :
                                                     </label>
-
-                                                    <input
+                                                    <Field
                                                         type="text"
-                                                        id="fullname"
-                                                        // name="fullname"
+                                                        // id="fullname"
+                                                        name="fullname"
                                                         // value={formik.values.fullname}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
-                                                        {...formik.getFieldProps('fullname')}
+                                                        // {...formik.getFieldProps('fullname')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {formik.touched.fullname && formik.errors.fullname ? (
+                                                    {/* {formik.touched.fullname && formik.errors.fullname ? (
                                                         <div className="text-red-500 text-sm">{formik.errors.fullname}</div>
-                                                    ) : null}
+                                                    ) : null} */}
+                                                    <ErrorMessage name="fullname" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
                                                 <div className="col-span-6 sm:col-span-3">
@@ -109,19 +108,20 @@ const AddContact = () => {
                                                         شماره موبایل :
                                                     </label>
 
-                                                    <input
+                                                    <Field
                                                         type="number"
-                                                        id="mobile"
-                                                        // name="mobile"
+                                                        // id="mobile"
+                                                        name="mobile"
                                                         // value={formik.values.mobile}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
-                                                        {...formik.getFieldProps('mobile')}
+                                                        // {...formik.getFieldProps('mobile')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {formik.touched.mobile && formik.errors.mobile ? (
+                                                    {/* {formik.touched.mobile && formik.errors.mobile ? (
                                                         <div className="text-red-500 text-sm">{formik.errors.mobile}</div>
-                                                    ) : null}
+                                                    ) : null} */}
+                                                    <ErrorMessage name="mobile" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
                                                 <div className="col-span-6">
@@ -129,19 +129,20 @@ const AddContact = () => {
                                                         ایمیل :
                                                     </label>
 
-                                                    <input
+                                                    <Field
                                                         type="email"
-                                                        id="Email"
-                                                        // name="email"
+                                                        // id="Email"
+                                                        name="email"
                                                         // value={formik.values.email}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
-                                                        {...formik.getFieldProps('email')}
+                                                        // {...formik.getFieldProps('email')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {formik.touched.email && formik.errors.email ? (
+                                                    {/* {formik.touched.email && formik.errors.email ? (
                                                         <div className='text-red-500 text-sm'>{formik.errors.email}</div>
-                                                    ) : null}
+                                                    ) : null} */}
+                                                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
                                                 <div className="col-span-6 sm:col-span-3">
@@ -152,19 +153,20 @@ const AddContact = () => {
                                                         شغل :
                                                     </label>
 
-                                                    <input
+                                                    <Field
                                                         type="text"
-                                                        id="job"
-                                                        // name="job"
+                                                        // id="job"
+                                                        name="job"
                                                         // value={formik.values.job}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
-                                                        {...formik.getFieldProps('job')}
+                                                        // {...formik.getFieldProps('job')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {formik.touched.job && formik.errors.job ? (
+                                                    {/* {formik.touched.job && formik.errors.job ? (
                                                         <div className='text-red-500 text-sm'>{formik.errors.job}</div>
-                                                    ) : null}
+                                                    ) : null} */}
+                                                    <ErrorMessage name="job" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
                                                 <div className="col-span-6 sm:col-span-3">
@@ -175,13 +177,14 @@ const AddContact = () => {
                                                         انتخاب گروه :
                                                     </label>
 
-                                                    <select
-                                                        id="group"
-                                                        // name="group"
+                                                    <Field
+                                                        // id="group"
+                                                        name="group"
+                                                        as="select"
                                                         // value={formik.values.group}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
-                                                        {...formik.getFieldProps('group')}
+                                                        // {...formik.getFieldProps('group')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     >
                                                         <option>انتخاب گروه</option>
@@ -192,10 +195,11 @@ const AddContact = () => {
                                                                 </option>
                                                             ))
                                                         }
-                                                    </select>
-                                                    {formik.touched.group && formik.errors.group ? (
+                                                    </Field>
+                                                    {/* {formik.touched.group && formik.errors.group ? (
                                                         <div className='text-red-500 text-sm'>{formik.errors.group}</div>
-                                                    ) : null}
+                                                    ) : null} */}
+                                                    <ErrorMessage name="group" component="div" className="text-red-500 text-sm" />
                                                 </div>
                                                 <div className="col-span-6">
                                                     <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -209,12 +213,13 @@ const AddContact = () => {
                                                         // value={formik.values.image}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
-                                                        {...formik.getFieldProps('image')}
+                                                        // {...formik.getFieldProps('image')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {formik.touched.image && formik.errors.image ? (
+                                                    {/* {formik.touched.image && formik.errors.image ? (
                                                         <div className='text-red-500 text-sm'>{formik.errors.image}</div>
-                                                    ) : null}
+                                                    ) : null} */}
+                                                    <ErrorMessage name='image' component="div" className="text-red-500 text-sm" />
                                                 </div>
                                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                                     <input type='submit' value="ساخت مخاطب جدید"
@@ -228,8 +233,8 @@ const AddContact = () => {
                                                         انصراف
                                                     </Link>
                                                 </div>
-                                            </form>
-                                        )}
+                                            </Form>
+                                        
                                     </Formik>
                                 </div>
                             </main>

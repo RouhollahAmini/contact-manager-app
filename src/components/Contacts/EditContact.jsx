@@ -8,6 +8,8 @@ import { getContactById, updateContact } from "../../services/contactService";
 
 import { Spinner } from "../";
 
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { contactSchema } from "../../validations/contactValidation";
 
 const EditContact = () => {
 
@@ -35,19 +37,19 @@ const EditContact = () => {
         fetchData();
     }, []);
 
-    const onContactChange = (e) => {
-        setContact({
-            ...contact,
-            [e.target.name]: e.target.value
-        })
-    };
+    // const onContactChange = (e) => {
+    //     setContact({
+    //         ...contact,
+    //         [e.target.name]: e.target.value
+    //     })
+    // };
 
-    const submitForm = async (event) => {
-        event.preventDefault();
+    const submitForm = async (values) => {
+        // event.preventDefault();
         try {
             setLoading(true);
 
-            const { data, status } = await updateContact(contactId, contact);
+            const { data, status } = await updateContact(contactId, values);
 
             if (status === 200) {
                 setLoading(false);
@@ -55,7 +57,7 @@ const EditContact = () => {
                 const allContacts = [...contacts];
                 const contactIndex = allContacts.findIndex((contact) => contact.id === parseInt(contactId));
 
-                allContacts[contactIndex] = data;
+                allContacts[contactIndex] = { ...data };
                 setContacts(allContacts);
                 setFilteredContacts(allContacts);
 
@@ -98,127 +100,180 @@ const EditContact = () => {
                                             شما می توانید اطلاعات مخاطب خود را در فرم زیر ویرایش کنید.
                                         </p>
 
-                                        <form onSubmit={submitForm} className="mt-8 grid grid-cols-6 gap-6">
-                                            <div className="col-span-6 sm:col-span-3">
-                                                <label
-                                                    htmlFor="fullname"
-                                                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                                                >
-                                                    نام و نام خانوادگی :
-                                                </label>
+                                        <Formik
+                                            initialValues={{
+                                                fullname: contact.fullname,
+                                                mobile: contact.mobile,
+                                                email: contact.email,
+                                                group: contact.group,
+                                                job: contact.job,
+                                                image: contact.image
+                                            }}
+                                            validationSchema={contactSchema}
+                                            onSubmit={async (values) => {
+                                                await submitForm(values);
+                                            }}
+                                        >
+                                            <Form className="mt-8 grid grid-cols-6 gap-6">
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        htmlFor="fullname"
+                                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        نام و نام خانوادگی :
+                                                    </label>
+                                                    <Field
+                                                        type="text"
+                                                        // id="fullname"
+                                                        name="fullname"
+                                                        // value={formik.values.fullname}
+                                                        // onChange={formik.handleChange}
+                                                        // onBlur={formik.handleBlur}
+                                                        // {...formik.getFieldProps('fullname')}
+                                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                                                    />
+                                                    {/* {formik.touched.fullname && formik.errors.fullname ? (
+                                                                                                <div className="text-red-500 text-sm">{formik.errors.fullname}</div>
+                                                                                            ) : null} */}
+                                                    <ErrorMessage name="fullname" component="div" className="text-red-500 text-sm" />
+                                                </div>
 
-                                                <input
-                                                    type="text"
-                                                    id="fullname"
-                                                    name="fullname"
-                                                    value={contact.fullname}
-                                                    onChange={onContactChange}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
-                                            </div>
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        htmlFor="mobile"
+                                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        شماره موبایل :
+                                                    </label>
 
-                                            <div className="col-span-6 sm:col-span-3">
-                                                <label
-                                                    htmlFor="mobile"
-                                                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                                                >
-                                                    شماره موبایل :
-                                                </label>
+                                                    <Field
+                                                        type="number"
+                                                        // id="mobile"
+                                                        name="mobile"
+                                                        // value={formik.values.mobile}
+                                                        // onChange={formik.handleChange}
+                                                        // onBlur={formik.handleBlur}
+                                                        // {...formik.getFieldProps('mobile')}
+                                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                                                    />
+                                                    {/* {formik.touched.mobile && formik.errors.mobile ? (
+                                                                                                <div className="text-red-500 text-sm">{formik.errors.mobile}</div>
+                                                                                            ) : null} */}
+                                                    <ErrorMessage name="mobile" component="div" className="text-red-500 text-sm" />
+                                                </div>
 
-                                                <input
-                                                    type="number"
-                                                    id="mobile"
-                                                    name="mobile"
-                                                    value={contact.mobile}
-                                                    onChange={onContactChange}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
-                                            </div>
+                                                <div className="col-span-6">
+                                                    <label htmlFor="Email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                                        ایمیل :
+                                                    </label>
 
-                                            <div className="col-span-6">
-                                                <label htmlFor="Email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                                    ایمیل :
-                                                </label>
+                                                    <Field
+                                                        type="email"
+                                                        // id="Email"
+                                                        name="email"
+                                                        // value={formik.values.email}
+                                                        // onChange={formik.handleChange}
+                                                        // onBlur={formik.handleBlur}
+                                                        // {...formik.getFieldProps('email')}
+                                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                                                    />
+                                                    {/* {formik.touched.email && formik.errors.email ? (
+                                                                                                <div className='text-red-500 text-sm'>{formik.errors.email}</div>
+                                                                                            ) : null} */}
+                                                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                                                </div>
 
-                                                <input
-                                                    type="email"
-                                                    id="Email"
-                                                    name="email"
-                                                    value={contact.email}
-                                                    onChange={onContactChange}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
-                                            </div>
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        htmlFor="job"
+                                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        شغل :
+                                                    </label>
 
-                                            <div className="col-span-6 sm:col-span-3">
-                                                <label
-                                                    htmlFor="job"
-                                                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                                                >
-                                                    شغل :
-                                                </label>
+                                                    <Field
+                                                        type="text"
+                                                        // id="job"
+                                                        name="job"
+                                                        // value={formik.values.job}
+                                                        // onChange={formik.handleChange}
+                                                        // onBlur={formik.handleBlur}
+                                                        // {...formik.getFieldProps('job')}
+                                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                                                    />
+                                                    {/* {formik.touched.job && formik.errors.job ? (
+                                                                                                <div className='text-red-500 text-sm'>{formik.errors.job}</div>
+                                                                                            ) : null} */}
+                                                    <ErrorMessage name="job" component="div" className="text-red-500 text-sm" />
+                                                </div>
 
-                                                <input
-                                                    type="text"
-                                                    id="job"
-                                                    name="job"
-                                                    value={contact.job}
-                                                    onChange={onContactChange}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
-                                            </div>
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        htmlFor="group"
+                                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        انتخاب گروه :
+                                                    </label>
 
-                                            <div className="col-span-6 sm:col-span-3">
-                                                <label
-                                                    htmlFor="group"
-                                                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                                                >
-                                                    گروه :
-                                                </label>
+                                                    <Field
+                                                        // id="group"
+                                                        name="group"
+                                                        as="select"
+                                                        // value={formik.values.group}
+                                                        // onChange={formik.handleChange}
+                                                        // onBlur={formik.handleBlur}
+                                                        // {...formik.getFieldProps('group')}
+                                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                                                    >
+                                                        <option>انتخاب گروه</option>
+                                                        {
+                                                            groups.length > 0 && groups.map((group) => (
+                                                                <option key={group.id} value={group.id}>
+                                                                    {group.name}
+                                                                </option>
+                                                            ))
+                                                        }
+                                                    </Field>
+                                                    {/* {formik.touched.group && formik.errors.group ? (
+                                                                                                <div className='text-red-500 text-sm'>{formik.errors.group}</div>
+                                                                                            ) : null} */}
+                                                    <ErrorMessage name="group" component="div" className="text-red-500 text-sm" />
+                                                </div>
+                                                <div className="col-span-6">
+                                                    <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                                        آدرس تصویر :
+                                                    </label>
 
-                                                <select
-                                                    id="group"
-                                                    name="group"
-                                                    value={contact.group}
-                                                    onChange={onContactChange}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                >
-                                                    <option value="">انتخاب گروه</option>
-                                                    {groups.map((group) => (
-                                                        <option key={group.id} value={group.id}>
-                                                            {group.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                            <div className="col-span-6">
-                                                <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                                    آدرس تصویر :
-                                                </label>
+                                                    <input
+                                                        type="text"
+                                                        id="image"
+                                                        // name="image"
+                                                        // value={formik.values.image}
+                                                        // onChange={formik.handleChange}
+                                                        // onBlur={formik.handleBlur}
+                                                        // {...formik.getFieldProps('image')}
+                                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                                                    />
+                                                    {/* {formik.touched.image && formik.errors.image ? (
+                                                                                                <div className='text-red-500 text-sm'>{formik.errors.image}</div>
+                                                                                            ) : null} */}
+                                                    <ErrorMessage name='image' component="div" className="text-red-500 text-sm" />
+                                                </div>
+                                                <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
+                                                    <input type='submit' value="ساخت مخاطب جدید"
+                                                        className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
+                                                    />
 
-                                                <input
-                                                    type="text"
-                                                    id="image"
-                                                    name="image"
-                                                    value={contact.image}
-                                                    onChange={onContactChange}
-                                                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                                                />
-                                            </div>
+                                                    <Link
+                                                        to="/contacts"
+                                                        className="inline-block shrink-0 rounded-md border border-red-600 bg-red-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-red-600 focus:outline-none focus:ring active:text-red-500 dark:hover:bg-red-700 dark:hover:text-white"
+                                                    >
+                                                        انصراف
+                                                    </Link>
+                                                </div>
+                                            </Form>
 
-
-                                            <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                                                <input type='submit' value="ویرایش مخاطب"
-                                                    className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
-                                                />
-                                                <Link
-                                                    to="/contacts"
-                                                    className="inline-block shrink-0 rounded-md border border-red-600 bg-red-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-red-600 focus:outline-none focus:ring active:text-red-500 dark:hover:bg-red-700 dark:hover:text-white"
-                                                >
-                                                    برگشت
-                                                </Link>
-                                            </div>
-                                        </form>
+                                        </Formik>
                                     </div>
                                 </main>
                             </div>
