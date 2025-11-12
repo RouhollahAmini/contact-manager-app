@@ -7,10 +7,12 @@ const Navbar = () => {
             <div className="container">
                 <div className="flex items-center py-3">
                     <div className="hidden sm:block sm:w-1/2 md:w-1/3">
-                        <h1 className="">
-                            اپلیکیشن مدیریت&nbsp;
-                            <span className="text-danger">مخاطبین</span>
-                        </h1>
+                        <a href="/">
+                            <h1 className="">
+                                اپلیکیشن مدیریت&nbsp;
+                                <span className="text-red-600">مخاطبین</span>
+                            </h1>
+                        </a>
                     </div>
                     {
                         location.pathname === "/contacts" ? (

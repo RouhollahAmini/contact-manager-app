@@ -12,7 +12,7 @@ import Spinner from '../Spinner';
 
 const AddContact = () => {
 
-    const { loading, contact, onContactChange, groups, createContact } = useContext(ContactContext);
+    const { loading, groups, createContact } = useContext(ContactContext);
 
     const formik = useFormik({
         initialValues: {
@@ -25,8 +25,7 @@ const AddContact = () => {
         },
         validationSchema: contactSchema,
         onSubmit: async (values) => {
-            console.log(values);
-            // await createContact(values);
+            await createContact(values);
         }
     })
 
@@ -75,10 +74,11 @@ const AddContact = () => {
                                             <input
                                                 type="text"
                                                 id="fullname"
-                                                name="fullname"
-                                                value={formik.values.fullname}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                // name="fullname"
+                                                // value={formik.values.fullname}
+                                                // onChange={formik.handleChange}
+                                                // onBlur={formik.handleBlur}
+                                                {...formik.getFieldProps('fullname')}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                             {formik.touched.fullname && formik.errors.fullname ? (
@@ -97,10 +97,11 @@ const AddContact = () => {
                                             <input
                                                 type="number"
                                                 id="mobile"
-                                                name="mobile"
-                                                value={formik.values.mobile}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                // name="mobile"
+                                                // value={formik.values.mobile}
+                                                // onChange={formik.handleChange}
+                                                // onBlur={formik.handleBlur}
+                                                {...formik.getFieldProps('mobile')}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                             {formik.touched.mobile && formik.errors.mobile ? (
@@ -116,10 +117,11 @@ const AddContact = () => {
                                             <input
                                                 type="email"
                                                 id="Email"
-                                                name="email"
-                                                value={formik.values.email}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                // name="email"
+                                                // value={formik.values.email}
+                                                // onChange={formik.handleChange}
+                                                // onBlur={formik.handleBlur}
+                                                {...formik.getFieldProps('email')}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                             {formik.touched.email && formik.errors.email ? (
@@ -138,10 +140,11 @@ const AddContact = () => {
                                             <input
                                                 type="text"
                                                 id="job"
-                                                name="job"
-                                                value={formik.values.job}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                // name="job"
+                                                // value={formik.values.job}
+                                                // onChange={formik.handleChange}
+                                                // onBlur={formik.handleBlur}
+                                                {...formik.getFieldProps('job')}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                             {formik.touched.job && formik.errors.job ? (
@@ -159,10 +162,11 @@ const AddContact = () => {
 
                                             <select
                                                 id="group"
-                                                name="group"
-                                                value={formik.values.group}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                // name="group"
+                                                // value={formik.values.group}
+                                                // onChange={formik.handleChange}
+                                                // onBlur={formik.handleBlur}
+                                                {...formik.getFieldProps('group')}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             >
                                                 <option>انتخاب گروه</option>
@@ -186,10 +190,11 @@ const AddContact = () => {
                                             <input
                                                 type="text"
                                                 id="image"
-                                                name="image"
-                                                value={formik.values.image}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                // name="image"
+                                                // value={formik.values.image}
+                                                // onChange={formik.handleChange}
+                                                // onBlur={formik.handleBlur}
+                                                {...formik.getFieldProps('image')}
                                                 className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                             />
                                             {formik.touched.image && formik.errors.image ? (
