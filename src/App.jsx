@@ -11,26 +11,15 @@ import { ContactContext } from './context/contactContext';
 
 import _ from 'lodash';
 
-// import { contactSchema } from './validations/contactValidation';
+import { useImmer } from 'use-immer';
 
 import './App.css'
 
 const App = () => {
-    const [loading, setLoading] = useState(false);
-    const [contacts, setContacts] = useState([]);
-    const [filteredContacts, setFilteredContacts] = useState([]);
-    const [groups, setGroups] = useState([]);
-    const [contact, setContact] = useState({
-        fullname: "",
-        mobile: "",
-        email: "",
-        job: "",
-        group: "",
-        image: ""
-    });
-    // const [errors, setErrors] = useState([]);
-
-
+    const [loading, setLoading] = useImmer(false);
+    const [contacts, setContacts] = useImmer([]);
+    const [filteredContacts, setFilteredContacts] = useImmer([]);
+    const [groups, setGroups] = useImmer([]);
 
     const navigate = useNavigate();
 
@@ -60,39 +49,26 @@ const App = () => {
 
     //create a handler for contact submit form
     const createContactForm = async (values) => {
-        // event.preventDefault();
         try {
-            setLoading((prevLoading) => !prevLoading);
-            // await contactSchema.validate(contact, { abortEarly: false });
+            setLoading((draft) => !draft);
 
             const { status, data } = await createContact(values);
 
-
             if (status === 201) {
-                const allContacts = [...contacts, data];
 
-                setContacts(allContacts);
-                setFilteredContacts(allContacts);
+                setContacts((draft) => { draft.push(data); });
+                setFilteredContacts((draft) => { draft.push(data); })
 
-                setContact({});
                 setLoading((prevLoading) => !prevLoading)
 
                 navigate("/contacts");
             }
         } catch (err) {
             console.log(err.message);
-            // setErrors(err.inner);
             setLoading((prevLoading) => !prevLoading);
         }
     }
 
-    //create a event handler for contact
-    const onContactChange = (event) => {
-        setContact({
-            ...contact,
-            [event.target.name]: event.target.value,
-        })
-    }
 
     const confirmDelete = (contactId, contactFullname) => {
         confirmAlert({
@@ -205,15 +181,11 @@ const App = () => {
         <ContactContext.Provider value={{
             loading,
             setLoading,
-            contact,
-            setContact,
             contacts,
             setContacts,
             filteredContacts,
             setFilteredContacts,
             groups,
-            // errors,
-            onContactChange,
             deleteContact: confirmDelete,
             createContact: createContactForm,
             contactSearch,
