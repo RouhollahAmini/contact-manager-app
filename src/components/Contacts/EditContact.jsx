@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 
 import { ContactContext } from "../../context/contactContext";
 
@@ -12,6 +12,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from "../../validations/contactValidation";
 
 import { useImmer } from "use-immer";
+import { toast } from "react-toastify";
 
 const EditContact = () => {
 
@@ -54,7 +55,7 @@ const EditContact = () => {
 
             if (status === 200) {
                 setLoading(false);
-
+                toast.info("کاربر با موفقیت ویرایش شد.", { icon: "👍" });
                 setContacts(draft => {
                     updateContactInState(draft, contactId, data);
                 });
@@ -126,17 +127,9 @@ const EditContact = () => {
                                                     </label>
                                                     <Field
                                                         type="text"
-                                                        // id="fullname"
                                                         name="fullname"
-                                                        // value={formik.values.fullname}
-                                                        // onChange={formik.handleChange}
-                                                        // onBlur={formik.handleBlur}
-                                                        // {...formik.getFieldProps('fullname')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {/* {formik.touched.fullname && formik.errors.fullname ? (
-                                                                                                <div className="text-red-500 text-sm">{formik.errors.fullname}</div>
-                                                                                            ) : null} */}
                                                     <ErrorMessage name="fullname" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
@@ -150,17 +143,9 @@ const EditContact = () => {
 
                                                     <Field
                                                         type="number"
-                                                        // id="mobile"
                                                         name="mobile"
-                                                        // value={formik.values.mobile}
-                                                        // onChange={formik.handleChange}
-                                                        // onBlur={formik.handleBlur}
-                                                        // {...formik.getFieldProps('mobile')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {/* {formik.touched.mobile && formik.errors.mobile ? (
-                                                                                                <div className="text-red-500 text-sm">{formik.errors.mobile}</div>
-                                                                                            ) : null} */}
                                                     <ErrorMessage name="mobile" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
@@ -171,17 +156,9 @@ const EditContact = () => {
 
                                                     <Field
                                                         type="email"
-                                                        // id="Email"
                                                         name="email"
-                                                        // value={formik.values.email}
-                                                        // onChange={formik.handleChange}
-                                                        // onBlur={formik.handleBlur}
-                                                        // {...formik.getFieldProps('email')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {/* {formik.touched.email && formik.errors.email ? (
-                                                                                                <div className='text-red-500 text-sm'>{formik.errors.email}</div>
-                                                                                            ) : null} */}
                                                     <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
@@ -195,17 +172,9 @@ const EditContact = () => {
 
                                                     <Field
                                                         type="text"
-                                                        // id="job"
                                                         name="job"
-                                                        // value={formik.values.job}
-                                                        // onChange={formik.handleChange}
-                                                        // onBlur={formik.handleBlur}
-                                                        // {...formik.getFieldProps('job')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {/* {formik.touched.job && formik.errors.job ? (
-                                                                                                <div className='text-red-500 text-sm'>{formik.errors.job}</div>
-                                                                                            ) : null} */}
                                                     <ErrorMessage name="job" component="div" className="text-red-500 text-sm" />
                                                 </div>
 
@@ -218,13 +187,8 @@ const EditContact = () => {
                                                     </label>
 
                                                     <Field
-                                                        // id="group"
                                                         name="group"
                                                         as="select"
-                                                        // value={formik.values.group}
-                                                        // onChange={formik.handleChange}
-                                                        // onBlur={formik.handleBlur}
-                                                        // {...formik.getFieldProps('group')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     >
                                                         <option>انتخاب گروه</option>
@@ -236,9 +200,6 @@ const EditContact = () => {
                                                             ))
                                                         }
                                                     </Field>
-                                                    {/* {formik.touched.group && formik.errors.group ? (
-                                                                                                <div className='text-red-500 text-sm'>{formik.errors.group}</div>
-                                                                                            ) : null} */}
                                                     <ErrorMessage name="group" component="div" className="text-red-500 text-sm" />
                                                 </div>
                                                 <div className="col-span-6">
@@ -248,17 +209,9 @@ const EditContact = () => {
 
                                                     <Field
                                                         type="text"
-                                                        // id="image"
                                                         name="image"
-                                                        // value={formik.values.image}
-                                                        // onChange={formik.handleChange}
-                                                        // onBlur={formik.handleBlur}
-                                                        // {...formik.getFieldProps('image')}
                                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                                     />
-                                                    {/* {formik.touched.image && formik.errors.image ? (
-                                                                                                <div className='text-red-500 text-sm'>{formik.errors.image}</div>
-                                                                                            ) : null} */}
                                                     <ErrorMessage name='image' component="div" className="text-red-500 text-sm" />
                                                 </div>
                                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">

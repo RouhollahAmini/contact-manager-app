@@ -20,3 +20,7 @@ body {
   font-family: inherit;
   font-weight: 400;
 }
+
+.Toastify__toast {
+  font-family: Dana, tahoma, sans-serif !important;
+}

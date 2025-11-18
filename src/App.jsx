@@ -13,6 +13,8 @@ import { useImmer } from 'use-immer';
 
 import { showDeleteConfirm } from './helpers/contactHelpers';
 
+import { ToastContainer, toast } from 'react-toastify';
+
 import './App.css'
 
 const App = () => {
@@ -53,6 +55,7 @@ const App = () => {
             setLoading((draft) => !draft);
 
             const { status, data } = await createContact(values);
+            toast.success("کاربر با موفقیت ساخته شد.", { icon: "✅" });
 
             if (status === 201) {
 
@@ -79,6 +82,7 @@ const App = () => {
             setFilteredContacts(draft => draft.filter((contact) => contact.id !== contactId));
 
             const { status } = await deleteContact(contactId);
+            toast.error("کاربر با موفقیت حذف شد.", { icon: "❌" });
             if (status !== 200) {
                 setContacts(contactsBackup);
                 setFilteredContacts(contactsBackup);
@@ -95,7 +99,7 @@ const App = () => {
         if (!query) {
             setFilteredContacts(contacts);
         } else {
-            setFilteredContacts(draft => draft.filter((c) => 
+            setFilteredContacts(draft => draft.filter((c) =>
                 c.fullname.toLowerCase().includes(query.toLowerCase())
             ));
         }
@@ -115,6 +119,7 @@ const App = () => {
             contactSearch,
         }}>
             <div>
+                <ToastContainer rtl={true} position="top-right" />
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Navigate to={'/contacts'} />} />
