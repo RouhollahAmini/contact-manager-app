@@ -11,6 +11,8 @@ import { Spinner } from "../";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from "../../validations/contactValidation";
 
+import { useImmer } from "use-immer";
+
 const EditContact = () => {
 
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ const EditContact = () => {
 
     const { contacts, setContacts, setFilteredContacts, loading, setLoading, groups } = useContext(ContactContext);
 
-    const [contact, setContact] = useState({});
+    const [contact, setContact] = useImmer({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,15 +39,14 @@ const EditContact = () => {
         fetchData();
     }, []);
 
-    // const onContactChange = (e) => {
-    //     setContact({
-    //         ...contact,
-    //         [e.target.name]: e.target.value
-    //     })
-    // };
+    const updateContactInState = (draft, contactId, newData) => {
+        const contactIndex = draft.findIndex((c) => c.id === parseInt(contactId));
+        if (contactIndex !== -1) {
+            draft[contactIndex] = { ...newData };
+        }
+    };
 
     const submitForm = async (values) => {
-        // event.preventDefault();
         try {
             setLoading(true);
 
@@ -54,12 +55,13 @@ const EditContact = () => {
             if (status === 200) {
                 setLoading(false);
 
-                const allContacts = [...contacts];
-                const contactIndex = allContacts.findIndex((contact) => contact.id === parseInt(contactId));
-
-                allContacts[contactIndex] = { ...data };
-                setContacts(allContacts);
-                setFilteredContacts(allContacts);
+                setContacts(draft => {
+                    updateContactInState(draft, contactId, data);
+                });
+                
+                setFilteredContacts(draft => {
+                    updateContactInState(draft, contactId, data);
+                });
 
                 navigate("/contacts");
             }
@@ -244,10 +246,10 @@ const EditContact = () => {
                                                         آدرس تصویر :
                                                     </label>
 
-                                                    <input
+                                                    <Field
                                                         type="text"
-                                                        id="image"
-                                                        // name="image"
+                                                        // id="image"
+                                                        name="image"
                                                         // value={formik.values.image}
                                                         // onChange={formik.handleChange}
                                                         // onBlur={formik.handleBlur}
