@@ -9,7 +9,7 @@ import Spinner from "../Spinner";
 import NotFound from "../../assets/NotFound.gif";
 const Contacts = () => {
 
-    const {filteredContacts, loading, deleteContact} = useContext(ContactContext);
+    const { filteredContacts, loading, deleteContact } = useContext(ContactContext);
 
     return (
         <>
@@ -31,24 +31,25 @@ const Contacts = () => {
                     </div>
                 </div>
                 <br />
-                {loading ? <Spinner /> : (
-                    <div className={ filteredContacts.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : ""}>
-                        {filteredContacts.length > 0
-                            ? filteredContacts.map(c => (
-                                <Contact key={c.id} contact={c} deleteContact={()=> deleteContact(c.id, c.fullname)} />
-                            ))
-                            : (
-                                <div className="flex flex-col items-center gap-6">
-                                    <img src={NotFound} alt="پیدا نشد" className="w-1/6" />
-                                    <p className="text-xl">
-                                        مخاطب یافت نشد ...
-                                    </p>
-                                </div>
-                            )}
-                    </div>
-                )
-                }
-
+                <div>
+                    {loading ? <Spinner /> : (
+                        <div className={filteredContacts.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : ""}>
+                            {filteredContacts.length > 0
+                                ? filteredContacts.map(c => (
+                                    <Contact key={c.id} contact={c} deleteContact={() => deleteContact(c.id, c.fullname)} />
+                                ))
+                                : (
+                                    <div className="flex flex-col items-center gap-6">
+                                        <img src={NotFound} alt="پیدا نشد" className="w-1/6" />
+                                        <p className="text-xl">
+                                            مخاطب یافت نشد ...
+                                        </p>
+                                    </div>
+                                )}
+                        </div>
+                    )
+                    }
+                </div>
             </div>
         </>
     )
