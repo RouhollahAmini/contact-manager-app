@@ -19,7 +19,7 @@ const EditContact = () => {
     const navigate = useNavigate();
     const { contactId } = useParams();
 
-    const { contacts, setContacts, setFilteredContacts, loading, setLoading, groups } = useContext(ContactContext);
+    const { setContacts, setFilteredContacts, loading, setLoading, groups } = useContext(ContactContext);
 
     const [contact, setContact] = useImmer({});
 
