@@ -19,7 +19,7 @@ const EditContact = () => {
     const navigate = useNavigate();
     const { contactId } = useParams();
 
-    const { setContacts, setFilteredContacts, loading, setLoading, groups } = useContext(ContactContext);
+    const { contacts, setContacts, setFilteredContacts, loading, setLoading, groups } = useContext(ContactContext);
 
     const [contact, setContact] = useImmer({});
 
@@ -40,12 +40,6 @@ const EditContact = () => {
         fetchData();
     }, []);
 
-    const updateContactInState = (draft, contactId, newData) => {
-        const contactIndex = draft.findIndex((c) => c.id === parseInt(contactId));
-        if (contactIndex !== -1) {
-            draft[contactIndex] = { ...newData };
-        }
-    };
 
     const submitForm = async (values) => {
         try {
@@ -56,13 +50,12 @@ const EditContact = () => {
             if (status === 200) {
                 setLoading(false);
                 toast.info("کاربر با موفقیت ویرایش شد.", { icon: "👍" });
-                setContacts(draft => {
-                    updateContactInState(draft, contactId, data);
-                });
-                
-                setFilteredContacts(draft => {
-                    updateContactInState(draft, contactId, data);
-                });
+                const allContacts = [...contacts];
+                const contactIndex = allContacts.findIndex((contact) => contact.id === contactId);
+
+                allContacts[contactIndex] = { ...data };
+                setContacts(allContacts);
+                setFilteredContacts(allContacts);
 
                 navigate("/contacts");
             }
