@@ -1,4 +1,5 @@
 import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 /**
  * نمایش دیالوگ تأیید حذف مخاطب
@@ -10,7 +11,7 @@ export const showDeleteConfirm = (contactId, contactFullname, onDeleteConfirm) =
     confirmAlert({
         customUI: ({ onClose }) => {
             return (
-                <div role="alert" className="rounded-md border border-gray-300 bg-white p-4 shadow-sm">
+                <div role="alert" className="rounded-md border border-gray-300 bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700">
                     <div className="flex items-start gap-4">
                         <svg
                             fill="none"
@@ -25,14 +26,14 @@ export const showDeleteConfirm = (contactId, contactFullname, onDeleteConfirm) =
                         </svg>
 
                         <div className="flex-1">
-                            <strong className="font-medium text-gray-900"> پاک کردن مخاطب </strong>
+                            <strong className="font-medium text-gray-900 dark:text-white"> پاک کردن مخاطب </strong>
 
-                            <p className="mt-0.5 text-sm text-gray-700">آیا از پاک کردن {contactFullname} مطمئن هستید؟</p>
+                            <p className="mt-0.5 text-sm text-gray-700 dark:text-gray-300">آیا از پاک کردن {contactFullname} مطمئن هستید؟</p>
 
                             <div className="mt-3 flex items-center gap-2">
                                 <button
                                     type="button"
-                                    className="rounded border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-900 shadow-sm transition-colors hover:bg-gray-100"
+                                    className="rounded border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-900 shadow-sm transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-600"
                                     onClick={() => {
                                         onDeleteConfirm(contactId);
                                         onClose();
@@ -43,7 +44,7 @@ export const showDeleteConfirm = (contactId, contactFullname, onDeleteConfirm) =
 
                                 <button
                                     type="button"
-                                    className="rounded border border-transparent px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
+                                    className="rounded border border-transparent px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                                     onClick={onClose}
                                 >
                                     انصراف
@@ -52,7 +53,7 @@ export const showDeleteConfirm = (contactId, contactFullname, onDeleteConfirm) =
                         </div>
 
                         <button
-                            className="-m-3 rounded-full p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700"
+                            className="-m-3 rounded-full p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                             type="button"
                             aria-label="Dismiss alert"
                             onClick={onClose}

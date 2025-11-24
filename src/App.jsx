@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router';
 
 import { AddContact, Contacts, EditContact, Navbar, ViewContact } from './components';
@@ -22,8 +22,26 @@ const App = () => {
     const [contacts, setContacts] = useImmer([]);
     const [filteredContacts, setFilteredContacts] = useImmer([]);
     const [groups, setGroups] = useImmer([]);
+    const [theme, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+            return savedTheme;
+        }
+        // تشخیص خودکار تم سیستم
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    });
 
     const navigate = useNavigate();
+
+    // اعمال تم به محض بارگذاری کامپوننت
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,8 +90,6 @@ const App = () => {
         }
     }
 
-
-
     const removeContact = async (contactId) => {
         const contactsBackup = [...contacts];
         try {
@@ -117,8 +133,10 @@ const App = () => {
             deleteContact: (contactId, contactFullname) => showDeleteConfirm(contactId, contactFullname, removeContact),
             createContact: createContactForm,
             contactSearch,
+            theme,
+            setTheme
         }}>
-            <div>
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
                 <ToastContainer rtl={true} position="top-right" />
                 <Navbar />
                 <Routes>

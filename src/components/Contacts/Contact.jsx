@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
-const Contact = ({ contact, deleteContact }) => {
 
+const Contact = ({ contact, deleteContact }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const containerRef = useRef(null);
@@ -30,52 +30,77 @@ const Contact = ({ contact, deleteContact }) => {
         };
     }, []);
 
+    // رنگ‌های مختلف برای آواتار
+    const avatarColors = [
+        'bg-blue-500',
+        'bg-purple-500',
+        'bg-green-500',
+        'bg-yellow-500',
+        'bg-red-500',
+        'bg-pink-500',
+        'bg-indigo-500'
+    ];
+
+    // انتخاب رنگ بر اساس نام
+    const getAvatarColor = (name) => {
+        if (!name) return avatarColors[0];
+        const charCodeSum = name.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+        return avatarColors[charCodeSum % avatarColors.length];
+    };
+
+    // تولید آواتار متنی بر اساس نام
+    const generateAvatar = (name) => {
+        if (!name) return '?';
+        const initials = name.split(' ').map(n => n[0]).join('');
+        return initials.substring(0, 2);
+    };
+
     return (
-
-        <div className="bg-fourthColor p-4 rounded-xl">
-            <article className="rounded-xl border border-gray-700/20 bg-white p-4">
-                <div className="flex items-center gap-4">
-                    <img
-                        alt={contact.fullName}
-                        src={contact.image}
-                        className="size-16 rounded-full object-cover"
-                    />
-
-                    <div className="flex justify-between w-full">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div className="p-5">
+                <div className="flex justify-between sm:items-start gap-4">
+                    <div className="flex flex-row items-center gap-4">
+                        {/* آواتار مخاطب */}
+                        {contact.image ? (
+                            <img
+                                alt={contact.fullName}
+                                src={contact.image}
+                                className="size-16 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700"
+                            />
+                        ) : (
+                            <div className={`${getAvatarColor(contact.fullname)} size-16 rounded-full flex items-center justify-center text-white font-bold text-xl`}>
+                                {generateAvatar(contact.fullname)}
+                            </div>
+                        )}
                         <div className="">
-                            <h3 className="text-md font-medium dark:text-white mb-2">
+                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                                 {contact.fullname}
                             </h3>
-                            <ul className="-m-1 flex flex-wrap">
-                                <li className="p-1 leading-none">
-                                    <a href="#" className="text-xs font-medium dark:text-gray-300"> Twitter </a>
-                                </li>
-
-                                <li className="p-1 leading-none">
-                                    <a href="#" className="text-xs font-medium dark:text-gray-300"> GitHub </a>
-                                </li>
-
-                                <li className="p-1 leading-none">
-                                    <a href="#" className="text-xs font-medium dark:text-gray-300">Website</a>
-                                </li>
-                            </ul>
+                            <span className="inline-flex items-center max-h-fit px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
+                                {contact.job || "بدون شغل"}
+                            </span>
                         </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
                         <div className="relative" ref={containerRef}>
-
-                            <button onClick={handleOpen}
-                                className="p-2 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-700 dark:dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            <button
+                                onClick={handleOpen}
+                                className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white transition-colors"
                             >
-                                ...
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                </svg>
                             </button>
+
                             {isOpen && (
                                 <div
-                                    className="dropdown absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-900"
+                                    className="absolute left-0 z-10 mt-2 w-48 origin-top-left divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-lg dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800"
                                     role="menu"
                                 >
-                                    <div className="p-2">
+                                    <div className="p-1">
                                         <Link
                                             to={`/contacts/${contact.id}`}
-                                            className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:dark:text-gray-300"
+                                            className="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                                             role="menuitem"
                                         >
                                             مشاهده مخاطب
@@ -83,17 +108,17 @@ const Contact = ({ contact, deleteContact }) => {
 
                                         <Link
                                             to={`/contacts/edit/${contact.id}`}
-                                            className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:dark:text-gray-300"
+                                            className="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                                             role="menuitem"
                                         >
                                             ویرایش مخاطب
                                         </Link>
                                     </div>
 
-                                    <div className="p-2">
+                                    <div className="p-1">
                                         <button
                                             type="submit"
-                                            className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50 dark:text-red-500 dark:hover:bg-red-600/10"
+                                            className="flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm text-red-700 hover:bg-red-50 hover:text-red-900 dark:text-red-400 dark:hover:bg-red-900/20 dark:hover:text-red-300"
                                             role="menuitem"
                                             onClick={deleteContact}
                                         >
@@ -117,35 +142,37 @@ const Contact = ({ contact, deleteContact }) => {
                                     </div>
                                 </div>
                             )}
-
                         </div>
                     </div>
                 </div>
 
-                <ul className="mt-4 space-y-2">
-                    <li>
-                        <div className="block h-full rounded-lg border border-gray-700/20 p-4 hover:border-gray-400">
-                            <span className="font-medium text-xs dark:text-white"> شماره تماس : </span>
-
-                            <a href={`tel:${contact.mobile}`} className="mt-1 font-medium dark:text-gray-300">
+                <div className="mt-4 space-y-2">
+                    <div className="flex items-center rounded-lg border border-gray-200 p-3 hover:border-blue-300 dark:border-gray-700 dark:hover:border-blue-500 transition-colors">
+                        <svg className="flex-shrink-0 w-5 h-5 text-gray-500 dark:text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                        <div>
+                            <span className="text-xs font-medium text-gray-500 dark:text-gray-400 block">شماره تماس</span>
+                            <a href={`tel:${contact.mobile}`} className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                 {contact.mobile}
                             </a>
                         </div>
-                    </li>
+                    </div>
 
-                    <li>
-                        <div className="block h-full rounded-lg border border-gray-700/20 p-4 hover:border-gray-400">
-                            <span className="font-medium text-xs dark:text-white"> ایمیل : </span>
-
-                            <a href={`mailto:${contact.email}`} className="mt-1 font-medium dark:text-gray-300">
+                    <div className="flex items-center rounded-lg border border-gray-200 p-3 hover:border-blue-300 dark:border-gray-700 dark:hover:border-blue-500 transition-colors">
+                        <svg className="flex-shrink-0 w-5 h-5 text-gray-500 dark:text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <div>
+                            <span className="text-xs font-medium text-gray-500 dark:text-gray-400 block">ایمیل</span>
+                            <a href={`mailto:${contact.email}`} className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                 {contact.email}
                             </a>
                         </div>
-                    </li>
-                </ul>
-            </article>
+                    </div>
+                </div>
+            </div>
         </div>
-
     )
 }
 
