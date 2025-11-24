@@ -58,33 +58,32 @@ const Contact = ({ contact, deleteContact }) => {
     return (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
             <div className="p-5">
-                <div className="flex items-start gap-4">
-                    {/* آواتار مخاطب */}
-                    {contact.image ? (
-                        <img
-                            alt={contact.fullName}
-                            src={contact.image}
-                            className="size-16 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700"
-                        />
-                    ) : (
-                        <div className={`${getAvatarColor(contact.fullname)} size-16 rounded-full flex items-center justify-center text-white font-bold text-xl`}>
-                            {generateAvatar(contact.fullname)}
-                        </div>
-                    )}
-
-                    <div className="flex justify-between w-full">
+                <div className="flex justify-between sm:items-start gap-4">
+                    <div className="flex flex-row items-center gap-4">
+                        {/* آواتار مخاطب */}
+                        {contact.image ? (
+                            <img
+                                alt={contact.fullName}
+                                src={contact.image}
+                                className="size-16 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700"
+                            />
+                        ) : (
+                            <div className={`${getAvatarColor(contact.fullname)} size-16 rounded-full flex items-center justify-center text-white font-bold text-xl`}>
+                                {generateAvatar(contact.fullname)}
+                            </div>
+                        )}
                         <div className="">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                                 {contact.fullname}
                             </h3>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-                                    {contact.job || "بدون شغل"}
-                                </span>
-                            </div>
+                            <span className="inline-flex items-center max-h-fit px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
+                                {contact.job || "بدون شغل"}
+                            </span>
                         </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
                         <div className="relative" ref={containerRef}>
-                            <button 
+                            <button
                                 onClick={handleOpen}
                                 className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white transition-colors"
                             >
@@ -92,7 +91,7 @@ const Contact = ({ contact, deleteContact }) => {
                                     <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                 </svg>
                             </button>
-                            
+
                             {isOpen && (
                                 <div
                                     className="absolute left-0 z-10 mt-2 w-48 origin-top-left divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-lg dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800"

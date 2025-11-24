@@ -10,17 +10,19 @@ const Contacts = () => {
     return (
         <div className="py-8">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">لیست مخاطبین</h2>
-                    <Link
-                        to="/contacts/add"
-                        className="mt-4 sm:mt-0 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
-                    >
-                        <svg className="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-                        </svg>
-                        افزودن مخاطب
-                    </Link>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center sm:text-right">لیست مخاطبین</h2>
+                    <div className="flex justify-center sm:justify-end">
+                        <Link
+                            to="/contacts/add"
+                            className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
+                        >
+                            <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                            </svg>
+                            افزودن مخاطب
+                        </Link>
+                    </div>
                 </div>
 
                 {loading ? (
@@ -28,7 +30,7 @@ const Contacts = () => {
                 ) : (
                     <>
                         {filteredContacts.length > 0 ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                                 {filteredContacts.map((contact) => (
                                     <Contact
                                         key={contact.id}
