@@ -1,15 +1,9 @@
-import SpinnerGif from "../assets/Spinner.gif";
-
 const Spinner = () => {
     return (
-        <>
-            <div className="container">
-                <div className="flex justify-center items-center w-1/4 mx-auto m-4">
-                    <img src={SpinnerGif} alt="لطفا صبر کنید" className="w-8 mx-auto" />
-                </div>
-            </div>
-        </>
-    )
-}
+        <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-blue-400"></div>
+        </div>
+    );
+};
 
 export default Spinner;

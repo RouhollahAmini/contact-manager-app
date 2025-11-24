@@ -19,8 +19,48 @@
 body {
   font-family: inherit;
   font-weight: 400;
+  transition: background-color 0.3s ease;
 }
 
 .Toastify__toast {
   font-family: Dana, tahoma, sans-serif !important;
+}
+
+/* استایل‌های مورد نیاز برای react-confirm-alert */
+.react-confirm-alert-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.react-confirm-alert-body {
+  direction: rtl;
+  padding: 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 90%;
+  max-width: 28rem;
+  background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .react-confirm-alert-body {
+    background: #1f2937; /* bg-gray-800 */
+  }
+}
+
+/* استایل‌های مورد نیاز برای تم تاریک */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #111827; /* bg-gray-900 */
 }

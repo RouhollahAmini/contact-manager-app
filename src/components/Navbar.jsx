@@ -1,26 +1,57 @@
-import SearchContact from "./Contacts/SearchContact";
+import { useContext } from "react";
+import { ContactContext } from "../context/contactContext";
+import SearchContact from "./contacts/SearchContact";
 
 const Navbar = () => {
+    const { theme, setTheme } = useContext(ContactContext);
+
+    const toggleTheme = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+        localStorage.setItem("theme", newTheme);
+        
+        // اعمال تم بلافاصله
+        if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    };
 
     return (
-        <nav className="shadow-md">
-            <div className="container">
-                <div className="flex items-center py-3">
-                    <div className="hidden sm:block sm:w-1/2 md:w-1/3">
-                        <a href="/">
-                            <h1 className="">
-                                اپلیکیشن مدیریت&nbsp;
-                                <span className="text-red-600">مخاطبین</span>
-                            </h1>
+        <nav className="bg-white dark:bg-gray-800 shadow-md">
+            <div className="container mx-auto px-4">
+                <div className="flex items-center justify-between h-16">
+                    <div className="flex items-center">
+                        <a href="/" className="text-xl font-bold text-gray-900 dark:text-white">
+                            اپلیکیشن مدیریت&nbsp;
+                            <span className="text-blue-600">مخاطبین</span>
                         </a>
                     </div>
-                    {
-                        location.pathname === "/contacts" ? (
-                            <div className="w-full sm:w-1/2 md:w-1/3">
+                    
+                    <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                        {location.pathname === "/contacts" && (
+                            <div className="w-64">
                                 <SearchContact />
                             </div>
-                        ) : null
-                    }
+                        )}
+                        
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                            aria-label="تغییر تم"
+                        >
+                            {theme === "dark" ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                                </svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
