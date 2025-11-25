@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { ContactContext } from '../../context/contactContext';
 
@@ -11,7 +11,6 @@ import Spinner from '../Spinner';
 
 const AddContact = () => {
     const { loading, groups, createContact } = useContext(ContactContext);
-    const [previewImage, setPreviewImage] = useState(null);
 
     // تولید آواتار متنی بر اساس نام
     const generateAvatar = (name) => {
@@ -70,16 +69,16 @@ const AddContact = () => {
                                         await createContact(values);
                                     }}
                                 >
-                                    {({ setFieldValue, values }) => (
+                                    {({ values }) => (
                                         <Form className="mt-8 space-y-6">
                                             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                                 <div className="sm:col-span-6">
                                                     <div className="flex items-center justify-center">
                                                         {values.image ? (
-                                                            <img 
-                                                                className="h-24 w-24 rounded-full border-2 border-dashed border-gray-300 dark:border-gray-600 object-cover" 
-                                                                src={values.image} 
-                                                                alt="پیش‌نمایش" 
+                                                            <img
+                                                                className="h-24 w-24 rounded-full border-2 border-dashed border-gray-300 dark:border-gray-600 object-cover"
+                                                                src={values.image}
+                                                                alt="پیش‌نمایش"
                                                             />
                                                         ) : (
                                                             <div className={`${getAvatarColor(values.fullname)} h-24 w-24 rounded-full flex items-center justify-center text-white font-bold text-2xl`}>
@@ -88,7 +87,7 @@ const AddContact = () => {
                                                         )}
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="sm:col-span-6">
                                                     <label htmlFor="fullname" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                                         نام و نام خانوادگی
@@ -98,7 +97,7 @@ const AddContact = () => {
                                                             type="text"
                                                             id="fullname"
                                                             name="fullname"
-                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                         />
                                                         <ErrorMessage name="fullname" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                     </div>
@@ -113,7 +112,7 @@ const AddContact = () => {
                                                             type="tel"
                                                             id="mobile"
                                                             name="mobile"
-                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                         />
                                                         <ErrorMessage name="mobile" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                     </div>
@@ -128,7 +127,7 @@ const AddContact = () => {
                                                             type="email"
                                                             id="email"
                                                             name="email"
-                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                         />
                                                         <ErrorMessage name="email" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                     </div>
@@ -143,7 +142,7 @@ const AddContact = () => {
                                                             type="text"
                                                             id="job"
                                                             name="job"
-                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                         />
                                                         <ErrorMessage name="job" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                     </div>
@@ -158,7 +157,7 @@ const AddContact = () => {
                                                             as="select"
                                                             id="group"
                                                             name="group"
-                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                         >
                                                             <option value="">انتخاب گروه</option>
                                                             {
@@ -182,7 +181,7 @@ const AddContact = () => {
                                                             type="text"
                                                             id="image"
                                                             name="image"
-                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                         />
                                                         <ErrorMessage name="image" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                     </div>
