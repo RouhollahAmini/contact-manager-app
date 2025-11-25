@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext } from "react";
 
 import { ContactContext } from "../../context/contactContext";
 
@@ -55,7 +55,6 @@ const EditContact = () => {
 
                 setLoading(false);
                 setContact(contactData);
-                setPreviewImage(contactData.image);
 
             } catch (error) {
                 console.log(error.message);
@@ -152,7 +151,7 @@ const EditContact = () => {
                                                                     type="text"
                                                                     id="fullname"
                                                                     name="fullname"
-                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                                 />
                                                                 <ErrorMessage name="fullname" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                             </div>
@@ -167,7 +166,7 @@ const EditContact = () => {
                                                                     type="tel"
                                                                     id="mobile"
                                                                     name="mobile"
-                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                                 />
                                                                 <ErrorMessage name="mobile" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                             </div>
@@ -182,7 +181,7 @@ const EditContact = () => {
                                                                     type="email"
                                                                     id="email"
                                                                     name="email"
-                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                                 />
                                                                 <ErrorMessage name="email" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                             </div>
@@ -197,7 +196,7 @@ const EditContact = () => {
                                                                     type="text"
                                                                     id="job"
                                                                     name="job"
-                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                                 />
                                                                 <ErrorMessage name="job" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                             </div>
@@ -212,7 +211,7 @@ const EditContact = () => {
                                                                     as="select"
                                                                     id="group"
                                                                     name="group"
-                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                                 >
                                                                     <option value="">انتخاب گروه</option>
                                                                     {
@@ -236,7 +235,7 @@ const EditContact = () => {
                                                                     type="text"
                                                                     id="image"
                                                                     name="image"
-                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                                 />
                                                                 <ErrorMessage name="image" component="div" className="mt-1 text-sm text-red-600 dark:text-red-500" />
                                                             </div>
